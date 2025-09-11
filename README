@@ -1,0 +1,147 @@
+Explore World — Travel Website
+
+Hero imersivo em tela cheia com carrossel de destinos, CTA e layout moderno. Feito com React, TypeScript e Tailwind CSS.
+
+✨ Features
+
+Carrossel fullscreen com auto-play e navegação por setas/bullets
+
+Título sobreposto com eyebrow (“Destino em destaque”)
+
+CTAs com aparição no hover (clean e moderno)
+
+Layout responsivo e acessível
+
+Estrutura pronta para seções: Destinos, Tipos de Viagem, Sobre, Pacotes, Depoimentos, Contato
+
+Ícones via lucide-react
+
+🧱 Stack
+
+React + Vite + TypeScript
+
+Tailwind CSS
+
+lucide-react (ícones)
+
+🚀 Como rodar
+# 1) Clonar o projeto
+git clone <seu-repo.git>
+cd <pasta-do-projeto>
+
+# 2) Instalar dependências
+npm install
+# ou: pnpm install / yarn
+
+# 3) Rodar localmente
+npm run dev
+
+
+Se estiver criando do zero:
+
+npm create vite@latest travel-site -- --template react-ts
+cd travel-site
+npm i -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+# configure tailwind em tailwind.config.* e index.css
+
+📁 Estrutura sugerida
+src/
+  components/
+    Header.tsx
+    HeroCarousel.tsx
+    Packages.tsx
+    Footer.tsx
+  assets/
+    bali.png
+    machu-picchu.png
+    nova-york.png
+    paris.png
+    rome.png
+  App.tsx
+  main.tsx
+  index.css
+
+
+✅ Dica: evite espaços nos nomes de arquivos (Machu Picchu.png). Prefira machu-picchu.png.
+
+🎛️ Customização
+Destinos do carrossel
+
+Edite o array em HeroCarousel.tsx:
+
+type Destination = {
+  id: number;
+  name: string;
+  location: string;
+  description: string;
+  image: string; // importado de /assets
+};
+
+const DESTINATIONS: Destination[] = [
+  {
+    id: 1,
+    name: "Machu Picchu",
+    location: "Peru",
+    description: "Descubra as antigas ruínas incas no coração dos Andes peruanos",
+    image: machupicchu,
+  },
+  // ...
+];
+
+
+
+♿ Acessibilidade
+
+Botões das setas possuem aria-label.
+
+Bullets têm aria-label para cada slide.
+
+Contraste reforçado com gradiente.
+
+Mantenha alt descritivo nas imagens.
+
+⚡ Performance
+
+Comprima imagens (1080–1600px de largura) e use .webp quando possível.
+
+Prefetch de imagens do próximo slide ajuda a suavizar transições.
+
+Evite assets com megabytes desnecessários.
+
+🧪 Scripts
+{
+  "dev": "vite",
+  "build": "tsc -b && vite build",
+  "preview": "vite preview"
+}
+
+☁️ Deploy
+
+Vercel (recomendado): import do GitHub → Framework: Vite → Build: npm run build → Output: dist/
+
+Netlify: Build npm run build e Public dist
+
+📝 Roadmap (sugestões)
+
+ Seção “Pacotes em Destaque” com preço “a partir de”
+
+ Depoimentos (cards)
+
+ “Sobre a Empresa” + WhatsApp clicável
+
+ Animações de scroll (AOS/Framer Motion)
+
+ Multi-idioma (pt/en)
+
+🤝 Contribuição
+
+Crie uma branch: feat/nova-secao
+
+Commit: feat: adiciona seção Pacotes
+
+Abra PR descrevendo a mudança
+
+📄 Licença
+
+Este projeto pode usar MIT (ou a licença que preferir).
