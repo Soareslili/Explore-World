@@ -1,20 +1,19 @@
-import Header from "./components/Header"
-import HeroCarousel from "./components/HeroCarousel"
+// src/App.tsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Index from "./pages/index";
+import Destinos from "./pages/Destinos";
+import TiposDeViagem from "./pages/TiposDeViagem";
+import NotFound from "./pages/NotFound";
 
-
-
-
-function App() {
-
-
+export default function App() {
   return (
-    <>
-      <Header />
-      <HeroCarousel />
-      )
-
-    </>
-    
-)}
-
-export default App
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/destinos" element={<Destinos />} />
+        <Route path="/tipos-de-viagem" element={<TiposDeViagem />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}

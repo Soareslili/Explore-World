@@ -3,6 +3,7 @@ import { Menu, X, Plane } from "lucide-react";
 
 const menuItems = [
   { name: "Home", href: "#home" },
+  { name: 'Destinos', href: '/destinos' },
   { name: "Tipos de Viagem", href: "#tipos" },
   { name: "Sobre Nós", href: "#sobre" },
   { name: "Pacotes", href: "#pacotes" },
@@ -17,7 +18,7 @@ const Header = () => {
     <header className="fixed top-0 w-full z-50 bg-neutral-950/80 backdrop-blur border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          
+
           <a href="#home" className="flex items-center gap-2">
             <span className="p-2 rounded-lg bg-orange-500/20">
               <Plane className="h-6 w-6 text-orange-400" />
