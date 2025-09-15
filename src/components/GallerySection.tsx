@@ -44,23 +44,23 @@ const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-[#111111] text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 scroll-reveal">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Galeria de <span className="text-primary">Aventuras</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Momentos únicos capturados ao redor do mundo pelos nossos viajantes
           </p>
         </div>
 
-        {/* Gallery Grid */}
+     
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[200px] md:auto-rows-[300px]">
           {galleryImages.map((image, index) => (
             <div
               key={image.id}
-              className={`group relative overflow-hidden rounded-lg cursor-pointer hover:scale-105 transition-all duration-500 scroll-reveal ${
+              className={`group relative overflow-hidden rounded-lg border border-gray-700 cursor-pointer hover:scale-105 transition-all duration-500 scroll-reveal ${
                 index === 0 || index === 2 || index === 4 ? 'row-span-2' : 'row-span-1'
               }`}
               style={{ animationDelay: `${index * 100}ms` }}
@@ -71,20 +71,20 @@ const GallerySection = () => {
                 alt={image.alt}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/60 transition-all duration-300 flex items-center justify-center">
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
                   <ZoomIn className="h-8 w-8 text-white mx-auto mb-2" />
                   <span className="text-white font-medium">{image.category}</span>
                 </div>
               </div>
-              <div className="absolute bottom-4 left-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-4 left-4 bg-primary/80 text-white px-3 py-1 rounded-full text-sm shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {image.category}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Modal */}
+   
         {selectedImage && (
           <div 
             className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
@@ -100,11 +100,11 @@ const GallerySection = () => {
               <img
                 src={selectedImage.src}
                 alt={selectedImage.alt}
-                className="max-w-full max-h-full object-contain rounded-lg"
+                className="max-w-full max-h-full object-contain rounded-lg border border-gray-700"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
                 <h3 className="text-white text-xl font-semibold mb-1">{selectedImage.alt}</h3>
-                <p className="text-white/80">{selectedImage.category}</p>
+                <p className="text-gray-300">{selectedImage.category}</p>
               </div>
             </div>
           </div>

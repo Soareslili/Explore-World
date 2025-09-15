@@ -41,82 +41,100 @@ const packages = [
   },
 ];
 
+
+const toNumber = (s: string) => Number(s.replace(/[^\d]/g, ''));
+
 const PackagesSection = () => {
   return (
-    <section id="pacotes" className="py-20 bg-background">
+    <section id="pacotes" className="py-20 bg-[#111111] text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 scroll-reveal">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Pacotes de <span className="text-primary">Viagem</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Experiências cuidadosamente planejadas para criar memórias inesquecíveis
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {packages.map((pkg, index) => (
-            <Card 
-              key={pkg.id} 
-              className="travel-card overflow-hidden group hover:scale-105 transition-all duration-500 scroll-reveal"
-              style={{ animationDelay: `${index * 200}ms` }}
-            >
-              <CardHeader className="p-0">
-                <div className="relative">
-                  <img
-                    src={pkg.image}
-                    alt={pkg.title}
-                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
-                    {Math.round(((parseFloat(pkg.originalPrice.replace('R$ ', '').replace('.', '')) - parseFloat(pkg.price.replace('R$ ', '').replace('.', ''))) / parseFloat(pkg.originalPrice.replace('R$ ', '').replace('.', ''))) * 100)}% OFF
-                  </div>
-                  <div className="absolute bottom-4 left-4 flex items-center space-x-1 bg-black/60 text-white px-2 py-1 rounded">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-medium">{pkg.rating}</span>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-foreground">{pkg.title}</h3>
-                <div className="flex items-center text-muted-foreground mb-3">
-                  <MapPin className="h-4 w-4 mr-1" />
-                  <span className="text-sm">{pkg.destinations.join(' • ')}</span>
-                </div>
-                
-                <div className="flex items-center justify-between mb-4 text-sm text-muted-foreground">
-                  <div className="flex items-center">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    {pkg.duration}
-                  </div>
-                  <div className="flex items-center">
-                    <Users className="h-4 w-4 mr-1" />
-                    {pkg.people}
-                  </div>
-                </div>
+          {packages.map((pkg, index) => {
+            const original = toNumber(pkg.originalPrice);
+            const current = toNumber(pkg.price);
+            const off = Math.round(((original - current) / original) * 100);
 
-                <div className="grid grid-cols-2 gap-2 mb-4">
-                  {pkg.features.map((feature, idx) => (
-                    <div key={idx} className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded">
-                      {feature}
+            return (
+              <Card
+                key={pkg.id}
+                className="overflow-hidden group hover:scale-[1.02] transition-all duration-500 scroll-reveal bg-[#1e1e1e] border border-gray-700"
+                style={{ animationDelay: `${index * 200}ms` }}
+              >
+                <CardHeader className="p-0">
+                  <div className="relative">
+                    <img
+                      src={pkg.image}
+                      alt={pkg.title}
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+
+                   
+                    <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                      {off}% OFF
                     </div>
-                  ))}
-                </div>
 
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <span className="text-sm text-muted-foreground line-through">{pkg.originalPrice}</span>
-                    <div className="text-2xl font-bold text-primary">{pkg.price}</div>
-                    <span className="text-xs text-muted-foreground">por pessoa</span>
+               
+                    <div className="absolute bottom-4 left-4 flex items-center space-x-1 bg-black/60 text-white px-2 py-1 rounded">
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <span className="text-sm font-medium">{pkg.rating}</span>
+                    </div>
                   </div>
-                </div>
+                </CardHeader>
 
-                <Button className="w-full travel-button-primary font-semibold">
-                  Reservar Agora
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{pkg.title}</h3>
+
+                  <div className="flex items-center text-gray-300 mb-3">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span className="text-sm">{pkg.destinations.join(' • ')}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between mb-4 text-sm text-gray-400">
+                    <div className="flex items-center">
+                      <Calendar className="h-4 w-4 mr-1" />
+                      {pkg.duration}
+                    </div>
+                    <div className="flex items-center">
+                      <Users className="h-4 w-4 mr-1" />
+                      {pkg.people}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 mb-5">
+                    {pkg.features.map((feature, idx) => (
+                      <div
+                        key={idx}
+                        className="text-xs bg-primary/10 text-primary px-2 py-1 rounded border border-primary/20"
+                      >
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-end justify-between mb-5">
+                    <div>
+                      <span className="text-sm text-gray-500 line-through">{pkg.originalPrice}</span>
+                      <div className="text-2xl font-bold text-primary leading-tight">{pkg.price}</div>
+                      <span className="text-xs text-gray-400">por pessoa</span>
+                    </div>
+                  </div>
+
+                  <Button className="w-full travel-button-primary font-semibold cursor-pointer">
+                    Reservar Agora
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

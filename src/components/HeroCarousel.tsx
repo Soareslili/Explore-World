@@ -39,7 +39,7 @@ const HeroCarousel: React.FC = () => {
 
   return (
     <section className="relative h-screen overflow-hidden group" id="home" aria-live="polite">
-      {/* Slides */}
+   
       <div className="absolute inset-0">
         {DESTINATIONS.map((s, i) => (
           <div
@@ -48,7 +48,7 @@ const HeroCarousel: React.FC = () => {
             aria-hidden={i !== currentSlide}
           >
             <img src={s.image} alt={`${s.name} – ${s.location}`} className="w-full h-full object-cover" />
-            {/* Gradiente MAIS FORTE para escurecer o fundo e dar contraste ao texto */}
+         
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/65 to-black/85" />
           </div>
         ))}
@@ -99,7 +99,7 @@ const HeroCarousel: React.FC = () => {
         </div>
       </div>
 
-      {/* Bullets */}
+    
       <div className="absolute bottom-8 left-0 right-0 z-10 flex justify-center gap-2">
         {DESTINATIONS.map((_, i) => (
           <button
@@ -111,7 +111,7 @@ const HeroCarousel: React.FC = () => {
         ))}
       </div>
 
-      {/* Setas */}
+    
       <button
         onClick={prevSlide}
         aria-label="Slide anterior"

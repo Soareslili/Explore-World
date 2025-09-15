@@ -6,7 +6,7 @@ import AboutSection from '../components/AboutSection';
 import GallerySection from '../components/GallerySection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import Footer from '../components/Footer';
-import SocialMediaIcons from '../components/SocialMediaIcons';
+
 
 const Index = () => {
   useEffect(() => {
@@ -34,7 +34,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <SocialMediaIcons />
+     
       
       <main>
         <HeroCarousel />

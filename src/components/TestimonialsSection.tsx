@@ -60,48 +60,39 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="py-20 bg-muted/30">
+    <section id='depoimento' className="py-20 bg-[#111111] text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 scroll-reveal">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             O que Nossos <span className="text-primary">Clientes</span> Dizem
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Histórias reais de viajantes que confiaram em nós para criar memórias inesquecíveis
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
-            <Card 
-              key={testimonial.id} 
-              className="travel-card hover:scale-105 transition-all duration-300 scroll-reveal"
+            <Card
+              key={testimonial.id}
+              className="bg-[#1e1e1e] border border-gray-700 rounded-lg hover:scale-105 transition-all duration-300 scroll-reveal"
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <CardContent className="p-6">
-                {/* Quote Icon */}
                 <div className="mb-4">
-                  <Quote className="h-8 w-8 text-primary/60" />
+                  <Quote className="h-8 w-8 text-orange-500" />
                 </div>
-
-                {/* Rating */}
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-
-                {/* Comment */}
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-gray-300 mb-6 leading-relaxed">
                   "{testimonial.comment}"
                 </p>
-
-                {/* Trip */}
-                <div className="text-sm text-primary font-medium mb-4 bg-primary/10 px-3 py-1 rounded-full w-fit">
+                <div className="text-sm text-orange-400 font-medium mb-4 bg-orange-500/10 px-3 py-1 rounded-full w-fit">
                   {testimonial.trip}
                 </div>
-
-                {/* Author */}
                 <div className="flex items-center">
                   <img
                     src={testimonial.avatar}
@@ -109,26 +100,17 @@ const TestimonialsSection = () => {
                     className="w-12 h-12 rounded-full object-cover mr-4"
                   />
                   <div>
-                    <div className="font-semibold text-foreground">{testimonial.name}</div>
-                    <div className="text-sm text-muted-foreground">{testimonial.location}</div>
+                    <div className="font-semibold text-white">{testimonial.name}</div>
+                    <div className="text-sm text-gray-400">{testimonial.location}</div>
                   </div>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
-
-        {/* Call to Action */}
-        <div className="text-center mt-12 scroll-reveal">
-          <p className="text-lg text-muted-foreground mb-6">
-            Quer fazer parte dessas histórias incríveis?
-          </p>
-          <button className="travel-button-primary px-8 py-3 text-lg font-semibold rounded-lg">
-            Comece Sua Jornada
-          </button>
-        </div>
       </div>
     </section>
+
   );
 };
 

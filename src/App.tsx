@@ -4,10 +4,12 @@ import Index from "./pages/index";
 import Destinos from "./pages/Destinos";
 import TiposDeViagem from "./pages/TiposDeViagem";
 import NotFound from "./pages/NotFound";
+import ScrollToHash from "./components/ScrollToHash";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToHash />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/destinos" element={<Destinos />} />

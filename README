@@ -1,20 +1,33 @@
 Explore World — Travel Website
 
-Hero imersivo em tela cheia com carrossel de destinos, CTA e layout moderno. Feito com React, TypeScript e Tailwind CSS.
+Site de viagens com visual dark elegante, hero imersivo, cards animados e navegação entre páginas e seções.
+Feito com React + TypeScript + Vite + Tailwind CSS + react-router-dom + lucide-react.
 
 ✨ Features
 
-Carrossel fullscreen com auto-play e navegação por setas/bullets
+Hero fullscreen com carrossel de destinos (auto-play + setas/bullets) e título com eyebrow (“Destino em destaque”)
 
-Título sobreposto com eyebrow (“Destino em destaque”)
+Tema dark consistente (background #111, cards #1e1e1e, texto claro, laranja como primário)
 
-CTAs com aparição no hover (clean e moderno)
+Pacotes de Viagem: cards com imagem, badge de desconto (OFF calculado), rating ★, recursos e CTA “Reservar Agora”
 
-Layout responsivo e acessível
+Depoimentos: seção escura com aspas, estrelas, chip do tipo de viagem e avatar
 
-Estrutura pronta para seções: Destinos, Tipos de Viagem, Sobre, Pacotes, Depoimentos, Contato
+Galeria: grade responsiva (1/2/3 colunas) com modal de zoom e overlay
+
+Sobre: blocos de missão/valores + cards de métricas (Destinos, Clientes, Experiência, Satisfação) e foto da equipe
+
+Destinos (página): filtros por continente, cards com preço/rating/destaques e CTAs
+
+Tipos de Viagem (página): 6 categorias com top bar em gradiente + cards escuros
+
+Header e Footer atualizados**:** links usam Link/NavLink (Router) + hash anchors que rolam suave
+
+Acessibilidade: aria-label em controles, contraste reforçado, alt nas imagens
 
 Ícones via lucide-react
+
+Responsivo de ponta a ponta
 
 🧱 Stack
 
@@ -22,7 +35,113 @@ React + Vite + TypeScript
 
 Tailwind CSS
 
+react-router-dom
+
 lucide-react (ícones)
+
+(UI base em components/ui/* — Button, Card)
+
+⚙️ Rotas & Navegação entre Seções
+
+Usamos BrowserRouter com um helper para rolar até a âncora quando o hash muda.
+
+src/App.tsx
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Index from "./pages/index";
+import Destinos from "./pages/Destinos";
+import TiposDeViagem from "./pages/TiposDeViagem";
+import NotFound from "./pages/NotFound";
+import ScrollToHash from "./components/ScrollToHash";
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToHash />
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/destinos" element={<Destinos />} />
+        <Route path="/tipos-de-viagem" element={<TiposDeViagem />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+
+src/components/ScrollToHash.tsx
+
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+export default function ScrollToHash() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+
+  useEffect(() => {
+    if (!hash) return;
+    const id = hash.replace("#", "");
+    const t = setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+    return () => clearTimeout(t);
+  }, [hash]);
+
+  return null;
+}
+
+
+Importante: em menus/CTAs use to="/#id" (e não href="#id") para garantir a volta à Home antes de rolar.
+
+Exemplo no Header
+
+import { Link, NavLink } from "react-router-dom";
+// ...
+<NavLink to="/#sobre">Sobre Nós</NavLink>
+<NavLink to="/destinos">Destinos</NavLink>
+<Link to="/#reserva" className="travel-button-primary">Reservar Agora</Link>
+
+🎨 Tema & Utilitários (Tailwind)
+
+Cores usadas no tema dark:
+
+Background: #111111
+
+Card: #1e1e1e
+
+Border: #374151~#3f3f46
+
+Primary (laranja): Tailwind orange-500/#f97316
+
+Texto “muted”: #9ca3af
+
+Util classes (em src/index.css ou global):
+
+/* Botão primário consistente do projeto */
+.travel-button-primary{
+  @apply bg-primary text-primary-foreground hover:bg-primary/90
+         font-semibold rounded-lg shadow-sm transition-colors;
+}
+
+/* Card visual padrão */
+.travel-card{
+  @apply bg-[#1e1e1e] border border-gray-700 rounded-xl;
+}
+
+/* Bordas/tons do tema travel (quando preciso) */
+.border-travel-border{ @apply border-gray-700; }
+.bg-travel-dark{ @apply bg-[#111111]; }
+.bg-travel-card{ @apply bg-[#1e1e1e]; }
+
+🧮 Lógica de Desconto (Pacotes)
+
+Badge “% OFF” calcula automaticamente a partir de price e originalPrice:
+
+const off = Math.round(
+  ((original - current) / original) * 100
+);
 
 🚀 Como rodar
 # 1) Clonar o projeto
@@ -37,21 +156,34 @@ npm install
 npm run dev
 
 
-Se estiver criando do zero:
+Criando do zero
 
-npm create vite@latest travel-site -- --template react-ts
-cd travel-site
+npm create vite@latest explore-world -- --template react-ts
+cd explore-world
 npm i -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
-# configure tailwind em tailwind.config.* e index.css
+# configure tailwind em tailwind.config.* e src/index.css
 
-📁 Estrutura sugerida
+📁 Estrutura
 src/
   components/
     Header.tsx
-    HeroCarousel.tsx
-    Packages.tsx
     Footer.tsx
+    ScrollToHash.tsx
+    ui/
+      button.tsx
+      card.tsx
+    sections/
+      HeroCarousel.tsx
+      PackagesSection.tsx
+      TestimonialsSection.tsx
+      GallerySection.tsx
+      AboutSection.tsx
+  pages/
+    index.tsx
+    Destinos.tsx
+    TiposDeViagem.tsx
+    NotFound.tsx
   assets/
     bali.png
     machu-picchu.png
@@ -63,51 +195,46 @@ src/
   index.css
 
 
-✅ Dica: evite espaços nos nomes de arquivos (Machu Picchu.png). Prefira machu-picchu.png.
+✅ Dica: evite espaços nos nomes de arquivos (ex.: machu-picchu.png, não Machu Picchu.png).
 
-🎛️ Customização
-Destinos do carrossel
+🎛️ Customização Rápida
 
-Edite o array em HeroCarousel.tsx:
+Destinos do carrossel (exemplo em HeroCarousel.tsx)
 
 type Destination = {
   id: number;
   name: string;
   location: string;
   description: string;
-  image: string; // importado de /assets
+  image: string;
 };
 
 const DESTINATIONS: Destination[] = [
-  {
-    id: 1,
-    name: "Machu Picchu",
-    location: "Peru",
+  { id: 1, name: "Machu Picchu", location: "Peru",
     description: "Descubra as antigas ruínas incas no coração dos Andes peruanos",
-    image: machupicchu,
-  },
+    image: machupicchu },
   // ...
 ];
 
-
-
 ♿ Acessibilidade
 
-Botões das setas possuem aria-label.
+Setas/bullets do carrossel com aria-label
 
-Bullets têm aria-label para cada slide.
+Texto alternativo nas imagens
 
-Contraste reforçado com gradiente.
+Contraste reforçado (overlays e tema dark)
 
-Mantenha alt descritivo nas imagens.
+Foco visível nos links/botões
 
 ⚡ Performance
 
-Comprima imagens (1080–1600px de largura) e use .webp quando possível.
+Comprima imagens (1080–1600px) e use .webp quando possível
 
-Prefetch de imagens do próximo slide ajuda a suavizar transições.
+Lazy-load em imagens fora do viewport
 
-Evite assets com megabytes desnecessários.
+Prefetch do próximo slide para transições suaves
+
+Evite assets “pesados” desnecessários
 
 🧪 Scripts
 {
@@ -118,21 +245,28 @@ Evite assets com megabytes desnecessários.
 
 ☁️ Deploy
 
-Vercel (recomendado): import do GitHub → Framework: Vite → Build: npm run build → Output: dist/
+Vercel (recomendado):
+Import do GitHub → Framework: Vite → Build: npm run build → Output: dist/
 
-Netlify: Build npm run build e Public dist
+Netlify:
+Build: npm run build → Public: dist
+
+Com BrowserRouter, configure rewrites para SPA (Vercel/Netlify já tratam).
+Hash anchors funcionam via ScrollToHash + links to="/#id".
 
 📝 Roadmap (sugestões)
 
- Seção “Pacotes em Destaque” com preço “a partir de”
+Busca por destinos/pacotes
 
- Depoimentos (cards)
+Integração com WhatsApp/Email para reservas
 
- “Sobre a Empresa” + WhatsApp clicável
+CMS leve (Sanity/Contentful) para editar conteúdos
 
- Animações de scroll (AOS/Framer Motion)
+Animações de scroll (Framer Motion)
 
- Multi-idioma (pt/en)
+Multi-idioma (pt/en)
+
+Testes e2e (Playwright)
 
 🤝 Contribuição
 
@@ -140,8 +274,5 @@ Crie uma branch: feat/nova-secao
 
 Commit: feat: adiciona seção Pacotes
 
-Abra PR descrevendo a mudança
+Abra um PR descrevendo a mudança
 
-📄 Licença
-
-Este projeto pode usar MIT (ou a licença que preferir).
