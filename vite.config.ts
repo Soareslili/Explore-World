@@ -2,17 +2,21 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import path from "path";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   plugins: [
-    react(),        // garante suporte a JSX/HMR do React
-    tailwindcss(),  // tailwind integrado
+    react(),       // JSX/HMR do React
+    tailwindcss(), // Tailwind integrado
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"), // opcional: facilita imports com "@/..."
+      "@": path.resolve(__dirname, "src"),
     },
-    dedupe: ["react", "react-dom"], // força usar uma única cópia
+    dedupe: ["react", "react-dom"],
   },
 });
