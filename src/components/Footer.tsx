@@ -7,7 +7,7 @@ const Footer = () => {
 
   const quickLinks = [
     { name: 'Home', href: '#home' },
-    { name: 'Destinos', href: '#destinos' },
+    { name: 'Destinos', href: '/destinos' },
       { name: "Tipos de Viagem", href: "/tipos-de-viagem" }, 
     { name: 'Sobre Nós', href: '#sobre' },
       { name: 'Pacotes', href: '#pacotes' },
@@ -108,7 +108,7 @@ const Footer = () => {
          
             <div className="mb-6">
               <a
-                href="https://wa.me/5511999999999"
+               href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20fazer%20uma%20reserva."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg transition-colors font-medium"

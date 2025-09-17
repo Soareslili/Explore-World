@@ -84,7 +84,7 @@ const HeroCarousel: React.FC = () => {
        
           <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity flex justify-center gap-3">
             <a
-              href="#destinos"
+              href="/destinos"
               className="inline-flex justify-center rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 transition"
             >
               Explorar
